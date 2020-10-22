@@ -1,0 +1,122 @@
+# 14503 로봇청소기
+~~~ java
+
+import java.util.*;
+public class MyClass{
+     static int n, m, r, c, d;
+     static int[][] map;
+     static int total = 0;
+     public static void main(String []args){
+        Scanner scan = new Scanner(System.in);
+        n = scan.nextInt();
+        m = scan.nextInt();
+        map = new int[n][m];
+        
+        r = scan.nextInt();
+        c = scan.nextInt();
+        d = scan.nextInt(); 
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                map[i][j] = scan.nextInt();
+            }
+        }
+        dfs();
+        System.out.println(total);
+        
+        System.out.println("===============================");
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                System.out.print(map[i][j]+" ");
+            }
+            System.out.println();
+        }
+     }
+     private static void dfs(){
+         int count = 0;
+         while(true){
+             System.out.println("[r, c, d] : ["+r+", "+c+", "+d+"] count : " + count);
+             if(map[r][c]==0) { // 현재위치 청소
+                 total++;
+                 map[r][c]=3;
+                 count = 1;
+             }
+             //step 1. 현재 방향에서 왼쪽으로 방향 전환후 청소하지 않은 공간 존재시 전진 후 청소
+             //step 2. 청소할 공간 없으면 방향 전환만
+             //step 3. 벽이 아닌 모든 방향이 청소되어있을 경우 방향 유지 후 1칸 후진
+             //step 4. step3에서 후진할 수 없도록 벽이 존재하는 경우 종료
+             switch(d){
+                 case 0: // 북 >> 서
+                     d = 3;
+                     if(c-1>=0){ //step1    
+                         if(map[r][c-1] == 0) {
+                             c -= 1; 
+                             continue;
+                            }
+                     }
+                     if(count == 5 && r+1<n){ 
+                         if(map[r+1][c] != 1) { // step3
+                             d = 0;
+                             r += 1;
+                             count = 1;
+                             continue;
+                         }else return;// step4
+                     }
+                     break;
+                 case 1: // 동 >> 북
+                     d = 0;
+                     if(r-1>=0){ //step1    
+                         if(map[r-1][c] == 0) {
+                             r -= 1; 
+                             continue;
+                            }
+                     }
+                     if(count == 5 && c-1>=0){ 
+                         if(map[r][c-1] != 1) { // step3
+                             d = 1;
+                             c -= 1;
+                             count = 1;
+                         }else return;// step4
+                     }
+                     break;
+                 case 2: // 남 >> 동
+                     d = 1;
+                     if(c+1<m){ //step1    
+                         if(map[r][c+1] == 0) {
+                             c += 1; 
+                             continue;
+                            }
+                     }
+                     if(count == 5 && r-1>=0){ 
+                         if(map[r-1][c] != 1) { // step3
+                             d = 2;
+                             r -= 1;
+                             count = 1;
+                             continue;
+                         }else return;// step4
+                     }
+                     break;
+                 case 3: // 서 >> 남
+                     d = 2;
+                     if(r+1<n){ //step1    
+                         if(map[r+1][c] == 0) {
+                             r += 1; 
+                             continue;
+                            }
+                     }
+                     if(count == 5 && c+1<m){ 
+                         if(map[r][c+1] != 1) { // step3
+                             d = 2;
+                             c += 1; 
+                             count = 1;
+                             continue;
+                         }else return;// step4
+                     }
+                     break;
+             }
+             count++;
+             
+         }
+     }
+}
+~~~
