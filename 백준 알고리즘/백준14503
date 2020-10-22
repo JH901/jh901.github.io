@@ -1,6 +1,5 @@
 # 14503 로봇청소기(java)
 ~~~ java
-
 import java.util.*;
 public class MyClass{
      static int n, m, r, c, d;
@@ -24,18 +23,13 @@ public class MyClass{
         dfs();
         System.out.println(total);
         
-        System.out.println("===============================");
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                System.out.print(map[i][j]+" ");
-            }
-            System.out.println();
-        }
      }
      private static void dfs(){
+        
          int count = 0;
          while(true){
-             System.out.println("[r, c, d] : ["+r+", "+c+", "+d+"] count : " + count);
+             
+             System.out.println("[r, c, d] : ["+r+", "+c+", "+d+"] total : " + total);
              if(map[r][c]==0) { // 현재위치 청소
                  total++;
                  map[r][c]=3;
@@ -106,7 +100,7 @@ public class MyClass{
                      }
                      if(count == 5 && c+1<m){ 
                          if(map[r][c+1] != 1) { // step3
-                             d = 2;
+                             d = 3;
                              c += 1; 
                              count = 1;
                              continue;
