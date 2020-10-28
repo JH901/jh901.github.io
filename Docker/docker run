@@ -1,0 +1,59 @@
+### 도커 이미지 만들어보기
+ : 이미지를 만들고 -> 컨테이너를 실행
+
+step 
+1. terminal 실행
+2. directory 진입
+3. say-my-name 폴더 생성
+    mkdir say-my-name
+4. say-my-name 폴더 진입
+    cd say-my-name
+5. code 편집기
+    name.txt 파일 생성
+    name
+6. terminal 파일 확인
+    ls --> name.txt
+7. name.txt 파일 실행
+    cat name.txt --> name
+8. dockerfile 작성
+    docker build를 위해서는 작업 지시서 필요 --> dockerfile
+     
+    1. 어떤 OS를 사용할 지 
+        FROM {도커 이미지 : 특정 OS etc...}
+    2. 어떤 명령어를 사용할 지
+        COPY name.txt . --> file .{폴더 내 directory 주소}
+    3. 어떤 파일을 컨테이너 안으로 가져갈지
+        CMD cat name.txt
+9. docker build -t 여러분의 이름/이미지의 이름:버전 .{도커파일의 경로}
+    docker build -t JiHyun/say-my-name:1.0 .
+
+10. docker images
+    docker images
+    --> FROM 절의 이미지 + 생성한 DOCKER 이미지 리스트
+    --> 따로 build하는 이유 -> 빌드 시간 단축 / 자원 절약
+    
+-----------------------
+### 직접 만든 이미지로 컨테이너 실행해보기
+1. docker images
+    --> 만든 이미지 리스트 출력
+2. docker run {이미지 Repository:tag}
+    -->docker run Jihyun/saymy-name:1.0
+    --> 만든 이미지 실행 : name
+    --> 종료
+3. docker ps
+    --> 실행중인 컨테이너 리스트 출력
+    --> 리스트 존재하지 않음<실행시킨 이미지가 명령어를 수행후 종료됨>
+4. dockerfile 수정 (실행되는 컨테이너 확인용- 마지막줄)
+    --> CMD while true; do sleep 30; cat name.text; done;
+5. docker build 시 버전업 빌드
+    --> docker build -t Jihyun/saymy-name:2.0
+6. docker images에서 버전업 된 이미지 확인
+7. docker run Jihyun/saymy-name:2.0
+8. 새로운 커맨드창 오픔
+9. docker ps
+    --> 실행중인 Jihyun/saymy-name:2.0 컨테이너 확인 가능
+10. docker exec -it 컨테이너 id bash
+    -->실행중인 컨테이너 내부 접속
+    --> ls 내부 파일 목록
+    --> 파일 수정 가능
+    --> 실시간 반영
