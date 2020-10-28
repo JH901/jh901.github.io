@@ -1,0 +1,44 @@
+# Blocking/Non-blocking, Synchronus/Asynchronus
+-------
+### Blocking VS Non-blocking 
+호출되는 대상이 직접 제어할 수 없는 경우 이를 구분할 수 있다.
+* Blocking     : 수행결과가 끝날 때 까지 제어권을 소유하고 있는 것
+* Non-blocking : 호출 이후 바로 제어권을 호출자쪽으로 넘기며, 호출한 쪽에서 다른 일을 수행할 수 있도록 하는것
+
+###  Synchronus VS Asynchronous
+두 가지 이상의 대상(메서드, 작업, 처리 등)과 이를 처리하는 시간으로 구분한다.
+* Synchronus   : 호출과 결과 동시 발생
+* Asynchronous : 호출과 결과 동시 발생 x
+
+-----------------------
+|                | Blocking       | Non-blocking |
+| --------       | --------       | -------- |
+| Synchronus     | Read/Write     | Read/Write    |
+| Asynchronous   | i/o multiplexing     | AIO    |
+
+* i/o multiplexing : 
+* AIO : 
+
+
+## I/O 관점에서 Sync/Async, Blocking/Non-blocking
+1. Synchrounus + blocking
+
+    ![s+b](https://media.vlpt.us/post-images/codemcd/8c51a790-4a1d-11ea-a77e-bff20a601eb8/synchronous-blocking-IO.png)
+    * Synchronous: read() 메서드(애플리케이션)가 리턴하는 시간과 커널에서 결과를 가져오는 시간이 일치한다.
+    * Blocking: 커널의 작업이 완료될 때까지 대기한다.
+    
+2.  Synchrounus + non-blocking
+
+    ![s+n](https://media.vlpt.us/post-images/codemcd/982dd930-4a1d-11ea-a77e-bff20a601eb8/Synchronous-non-blocking-IO.png)
+    * Synchronous: read() 메서드(애플리케이션)가 리턴하는 시간과 커널에서 결과를 가져오는 시간이 일치한다.
+    * Non-Blocking: 애플리케이션으로부터 요청을 받은 커널은 작업 완료 여부와 상관없이 바로 반환하여 제어권을 애플리케이션에게 넘겨준다. 커널의 작업이 완료되면 작업 결과를 애플리케이션에게 반환한다.
+    * 대표적인 예로는 멀티플랙싱을 수행하는 select(), epoll() 함수가 있다.
+    
+3. Asynchrounus + non-blocking
+    ![a+n](https://media.vlpt.us/post-images/codemcd/9dd91ca0-4a1d-11ea-a77e-bff20a601eb8/Asynchronous-non-blocking-IO.png)
+    * Asynchronous: readSome() 메서드(애플리케이션)가 리턴하는 시간과 커널에서 결과를 가져오는 시간이 일치하지 않는다.
+    * Non-Blocking: 애플리케이션으로부터 요청을 받은 커널은 작업 완료 여부와 상관없이 바로 반환하여 제어권을 애플리케이션에게 넘겨준다. 작업이 끝나면 애플리케이션에게 시그널 또는 콜백을 보낸다.
+    * 대표적인 예로는 윈도우에서 멀티플랙싱을 수행하는 IOCP가 있다.(epoll()보다 성능이 좋다.)
+
+4. Asynchrounus + blocking
+   
