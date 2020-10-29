@@ -1,0 +1,72 @@
+### Nginx를 도커로 띄워보기 - 포트 바인딩 개념
+
+* Nginx = web Service
+        = request에 대해 정의된 config file(규칙)에 따라 반환
+
+1. 컨테이너 실행
+    --> docker run -p 80:80 nginx
+    --> -p : 포트매핑 host port : docker container 내부 port
+2. Status: Downloaded newer Image for nginx:latest
+3. localhost:80 요청
+    --> terminal 요청관련 log 확인
+4. ctlr+c : 컨테이너에서 빠져나옴
+5. localhost:80 요청
+    --> 연결되지 않음 로그
+    
+-----------------------
+### MongoDB를 도커로 띄워보기 - 도커 볼륨 개념
+* document(Object)를 저장하는 DB
+* volume mount = 동기화?/ host영역과 container영역의 db동기화
+* -v : volume mount명령어
+* ${PWD} : 현재 디렉토리의 위치 반환
+
+1. 새 디랙토리생성
+    --> mkdir my-mongo
+    --> cd my-mongo
+    --> clear
+2. 컨테이너실행
+    --> docker run -v ${PWD}/data:/data/db mongo
+    --> data라는 폴더를 컨테이너 내부의 /data/db라는 폴더와 마운트 시킨다!!
+3. log 확인
+    --> Listening on 0.0.0.0
+    --> waiting for connections on port 27017
+4. another terminal open
+    --> data ls >> 파일 확인
+    --> docker ps
+    --> docker exec -it {container id}
+    --> '>' 확인
+        > use dangen
+        > db.dangen.insert({"name": "jhJang"})
+5. cntr + c : 컨테이너 종료
+6. 데이터 유지 확인
+    --> cd data
+    --> data ls
+    --> cd..
+    --> 2번
+    --> [new terminal]docker ps
+    --> [new terminal]docker exec -it {container id} mongo
+    -->  >> 3번
+    --> [new terminal] show dbs --> dangen 확인
+         > use dangen
+         >db.dangen.find({})
+    --> 데이터 확인   
+    
+-----------------------
+### Redis를 도커로 띄워보기 - 컨테이너 삭제
+* Redis
+    데이터베이스, 캐시 및 메시지 브로커로 사용되는 오픈소스, 메모리 내 데이터 구조 저장 장소
+
+1. 컨테이너 실행
+    --> (1) docker run -p 6379:6379 redis
+    --> (2) docker run redis [포트매핑x]
+2. [new terminal] 프로세스가 잘 동작하는지 확인
+    --> docker ps
+3. client tool 실행
+    --> redis-cli [redis와 포트매핑되어있어야 실행됨 (1)]
+    --> 127.0.0.1 : 6379> set name "JH"
+    --> 127.0.0.1 : 6379> get name
+    --> 127.0.0.1 : 6379> exit
+4. 컨테이너 중지 & 제거
+    --> docker ps
+    --> docker stop {container ID}
+    --> docker rm {container ID}
