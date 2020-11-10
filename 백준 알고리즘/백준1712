@@ -1,0 +1,52 @@
+# 1712 손익분기점 (java)
+-------------------
+![문제]()
+
+~~~java
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		String input = bf.readLine();
+		String[] inputs = input.split(" ");
+		long a = Integer.parseInt(inputs[0]); // 고정비용
+		long b = Integer.parseInt(inputs[1]); // 가변비용
+		long c = Integer.parseInt(inputs[2]); // 판매가격
+		
+		/*
+		 *	n = 손인분기점
+		 *	a + b*n  = 생산 비용, c*n = 수익
+		 *	a + b*n < c*n , n > 0, a >0
+		 *	a < (b-c)*n		-> 	(c-b)*n < -a
+		 *	a/(b-c) < n		->	n < -a/(c-b)
+		 *	b-c != 0		-> 0 < n < -a/(c-b)  -> 0 < -a/(c-b) , a > 0
+		 *										 -> c-b < 0		-> c < b
+		 *	손익분기점 존재  조건 :	b != c, c < b  
+		 */
+		
+		if(b >= c) bw.write(-1+"");	 // 손익 분기점이 존재하지 않을 조건 
+		else {
+			long bp = a/(c-b); // 손익 분기점
+			bw.write((bp+1)+"");
+		}
+		
+		bw.flush();
+		bw.close();
+		
+	}
+}
+
+~~~
+
+![결과]()
+
+###### tags: `Algorithm`
