@@ -1,0 +1,67 @@
+# 2798 블랙잭 (java)
+------------------------------
+![문제]()
+
+~~~ java
+package com.example.demo;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class num2 {
+		static int total = 0;
+		static int[] num;
+		static int n, m;
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		String input = bf.readLine();
+		String[] inputs = input.split(" ");
+		
+		n = Integer.parseInt(inputs[0]);
+		m = Integer.parseInt(inputs[1]);
+		
+		String number = bf.readLine();
+		String[] numbers = number.split(" ");
+		
+		num = new int[n];
+		for(int i=0; i<n; i++) {
+			num[i] = Integer.parseInt(numbers[i]);
+		}
+		
+		blackjeck(0, 0, 0);
+		
+		bw.write(total+"");
+		bw.flush();
+		bw.close();
+		
+	}
+	private static void blackjeck(int count, int index, int sum) {
+		if(sum > m) return;
+		if(count == 3) {
+			if(m-total > m-sum) total = sum;
+			return;
+		}
+		if(index == n) return;
+		
+		int newCount = count+ 1;
+		int nextIndex = index + 1;
+		int newSum = sum + num[index];
+		
+		blackjeck(count,nextIndex,sum);
+		
+		blackjeck(newCount,nextIndex,newSum);
+		
+	}
+		
+}
+
+~~~
+
+![결과]()
+
+###### tags: `Algorithm`
