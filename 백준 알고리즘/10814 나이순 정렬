@@ -1,0 +1,63 @@
+# 10814 나이순 정렬
+---------------------
+![문제]()
+~~~java
+package com.company;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(bf.readLine());
+
+        Map<Integer,List<Integer>> map = new HashMap<>(); // <나이, 가입순서>
+        Map<Integer,String> names= new HashMap<>(); //<가입순서, 이름>
+        List<Integer> ages = new ArrayList<>();
+        List<Integer> indexs;
+        String input;
+        String[] inputs;
+        int index, age;
+        String name;
+        for(int i=0; i<n; i++){
+            input = bf.readLine();
+            inputs = input.split(" ");
+
+            age = Integer.parseInt(inputs[0]);
+            name = inputs[1];
+
+            indexs = new ArrayList<>();
+            if(map.get(age)== null){
+                ages.add(age);
+            }else{
+                indexs = map.get(age);
+            }
+
+            indexs.add(i);
+            map.put(age, indexs);
+            names.put(i, name);
+        }
+
+        ages.sort(Comparator.naturalOrder());
+
+        for(int a :ages){
+            indexs = new ArrayList<>();
+            indexs = map.get(a);
+            indexs.sort(Comparator.naturalOrder());
+            for(int i: indexs){
+                bw.write(a+" "+names.get(i)+"\n");
+            }
+        }
+        
+        bw.flush();
+        bw.close();
+    }
+}
+~~~
+![결과]()
+
+###### tags: `Algorithm`
