@@ -1,0 +1,76 @@
+# 2108 통계학(java)
+-----------------
+![문제]()
+
+~~~java
+package com.company;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(bf.readLine());
+
+        int input;
+        double sum = 0; //입력값의 총 합
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        List<Integer> list = new ArrayList<>();
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i=0; i<n; i++){
+            input = Integer.parseInt(bf.readLine());
+            sum+=input;
+
+            if(map.get(input)==null){
+                map.put(input,1);
+                list.add(input);
+            }else{
+                map.put(input, map.get(input)+1);
+            }
+
+            max = max < input ? input : max;
+            min = min > input ? input : min;
+
+        }
+
+        list.sort(Comparator.naturalOrder());
+
+        int[] sortedArr = new int[n];
+        int index=0; // sortedArr의 index
+        int loop;    // 빈도수
+        int number = 0; // 최빈값
+        int count = 0;  // 최빈값의 빈도수
+        boolean isValExsist = false;
+        for(int val : list) {
+            loop = map.get(val);
+            for (int j = 0; j < loop; j++) {
+                sortedArr[index] = val;
+                index++;
+            }
+
+            if (count == loop && !isValExsist) {
+                number = val;
+                isValExsist = true;
+            } else if (count < loop) {
+                number = val;
+                count = loop;
+                isValExsist = false;
+            }
+        }
+            bw.write(Math.round(sum / n) + "\n"); // 1. 산술평균
+            bw.write(sortedArr[n / 2] + "\n"); //2. 중앙값
+            bw.write(number + "\n"); //3. 최빈값
+            bw.write((max - min) + "\n"); // 4. 범위
+
+            bw.flush();
+            bw.close();
+
+    }
+}
+~~~
+![결과]()
