@@ -1,6 +1,6 @@
 # 10718 We love kriii
 ----------------------
-![문제](./img/10718.PNG)
+![문제](../img/10718.PNG)
 
 ~~~java
 public class Main {
@@ -13,4 +13,4 @@ public class Main {
 
 }
 ~~~
-![결과](./img/10718_R.PNG)
+![결과](../img/10718_R.PNG)
