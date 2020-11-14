@@ -1,7 +1,7 @@
 # 2557 Hello World (java)
 -----------------
 
-![문제](./img/2557.PNG)
+![문제](../img/2557.PNG)
 
 ~~~java
 public class Main {
@@ -12,4 +12,4 @@ public class Main {
 	}
 }
 ~~~
-![결과](./img/2557_R.PNG)
+![결과](../img/2557_R.PNG)
