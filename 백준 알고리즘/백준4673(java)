@@ -1,6 +1,6 @@
 # 4673 셀프넘버 (java)
 --------------
-![문제]()
+![문제](./img/4673.PNG)
 
 ~~~java
 import java.io.BufferedReader;
@@ -51,6 +51,6 @@ public class num4673 {
 
 ~~~
 
-![결과]()
+![결과](./img/4673_R.PNG)
 
 ###### tags: `Algorithm`
