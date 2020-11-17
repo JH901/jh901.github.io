@@ -1,0 +1,42 @@
+# 15650 N과 M(2) (java)
+-----------------------
+![문제](../img/15650.PNG)
+
+~~~java
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    static int n, m;
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String input = bf.readLine();
+        String[] inputs = input.split(" ");
+
+        n = Integer.parseInt(inputs[0]);
+        m = Integer.parseInt(inputs[1]);
+
+        List<Integer> list = new ArrayList<>();
+        choseNum(1, "");
+    }
+
+    private static void choseNum(int num, String result) {
+        if(result.length()==m*2){
+            System.out.println(result);
+            return;
+        }
+
+        for(int i=num; i<=n; i++){
+            if(!result.contains(i+" ")){
+                String next = result+i+" ";
+                choseNum(i, next);
+            }
+        }
+    }
+}
+~~~
+
+![결과](../img/15650_R.PNG)
